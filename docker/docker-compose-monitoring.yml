@@ -15,7 +15,7 @@ services:
     - '--storage.tsdb.path=/prometheus'
     - '--storage.tsdb.retention=1d'
   alertmanager:
-    image: ${USER_NAME}/alertmanager
+    image: ${USERNAME}/alertmanager
     networks:
     - back_net
     - front_net

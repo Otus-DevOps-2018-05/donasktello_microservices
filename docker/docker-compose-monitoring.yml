@@ -2,7 +2,7 @@ version: '3.3'
 services:
   prometheus:
     env_file: .env
-    image: ${USERNAME}/prometheus
+    image: ${USER_NAME}/prometheus
     networks:
     - back_net
     - front_net
@@ -15,7 +15,7 @@ services:
     - '--storage.tsdb.path=/prometheus'
     - '--storage.tsdb.retention=1d'
   alertmanager:
-    image: ${USERNAME}/alertmanager
+    image: ${USER_NAME}/alertmanager
     networks:
     - back_net
     - front_net

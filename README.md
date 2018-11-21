@@ -101,3 +101,37 @@
 - Создали файлы манифесты для микросервисов
 - Прошли туториал Kubernetes The Hard way
 - Проверили, что файлы манифесты отрабатывают на созданном класетре kubernetes
+
+## Д/З №21
+- Установили kubectl для работы с Kubernetes API(все, что делает kubectl, можно сделать с помощью HTTP-запросов к API k8s)
+- Установили minikube для разворачивания локальной инсталляции Kubernetes
+- В качестве гипервизора для minikube использовали VirtualBox
+- Развернули наш Minikube-кластер, при этом был автоматически настроен kubectl
+- Создали и запустили Deployment для ui компонента
+- Сделали форвардинг для ui на порт 9292
+- Создали и запустили deployment для компонентов post и comment
+- Создали deployment для mongo, указав ему стандартный volume для хранения информации
+- Для связи компонентов между собой и внешним миром на каждый компонент сделали манифест service(абстракция,
+  которая определяет набор POD-ов (Endpoints) и способ доступа к ним)
+- Создали service для post и comment
+- Создали service для mongodb, т.к. она используется и остальными сервисами
+- Создали дополнительные service для связи post и comment с mongo
+- Создали service для ui компонента, чтобы предоставить доступ к нему снаружи, указав тип сервиса NodePort, по умолчанию все ClusterIP
+- Проверили стандартные аддоны minikube
+- Посмотрели стандартный аддон dashboard от minikube
+- Отделили среду разработки от всего отдельного кластера, создав namespace dev
+- Запустили приложение в dev namespace `kubectl apply -n dev -f .`
+- Добавили информацию об окружении в ui deployment
+- Создали Kubernetes cluster в GCE
+- Подключились к GKE для запуска нашего приложения `gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project docker-182408` 
+- Создали dev namespace в current context(GKE) `kubectl apply -f ./kubernetes/reddit/dev-namespace.yml`
+- Задеплоили все компоненты приложения в dev namespace `kubectl apply -f ./kubernetes/reddit/ -n dev`
+- Открыли reddit для внешнего мира(создав правило брандмауэра)
+- Настроили `Целевые экземпляры - все экземпляры в сети` `Диапазоны IP-адресов источников  - 0.0.0.0/0`
+    `Протоколы и порты - Указанные протоколы и порты tcp:30000-32767`
+- Выбрали свободную ноду из кластера `kubectl get nodes -o wide `
+- Нашли порт публикации service ui ` kubectl describe service ui -n dev | grep NodePort `
+- Проверили работу reddit по адресу `http://<node-ip>:<NodePort>`
+- Также в GKE проверили Dashboard для кластера ` kubectl proxy`
+- Заходим по адресу http://localhost:8001/ui
+- У dashboard не хватает прав, назначаем их `kubectl create clusterrolebinding kubernetes-dashboard  --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard`

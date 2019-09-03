@@ -135,3 +135,34 @@
 - Также в GKE проверили Dashboard для кластера ` kubectl proxy`
 - Заходим по адресу http://localhost:8001/ui
 - У dashboard не хватает прав, назначаем их `kubectl create clusterrolebinding kubernetes-dashboard  --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard`
+
+## Д/З №22
+- Потестировали интерфейс ui сервиса в качестве типов NodePort, LoadBalancer
+- Рассмотрели Ingress объект
+- Создали ui-ingress
+- Защитили наш сервис с помощью TLS
+- Подготовили сертификат и загрузили его в кластер kubernetes
+- Настроили ingress на приём только https траффика
+- Прописали Network Policy для mongo, ограничив приём только для сервисов post и comment
+- Прописали под нашу mongo бд volume EpmtyDir
+- Создали диск в Google Cloud
+- Примонтировали выделенный диск к POD mongo(Данный метод не самый оптимальный, тк выделется отдельный диск для POD)
+- Создадим ресурс хранилища, общий для всего кластера PersistentVolume
+- Создали PersistentVolumeClaim, с целью выделения места для хранения данных mongo
+- Создали StorageClass, как динамическое PVC
+
+## Д/З №23
+- Установили helm локально
+- Установили tiller на кластер
+- Создали Charts с инфраструктурой reddit
+- Шаблонизировали charts наших компонент
+- Использовали хелперы для сокращения
+- Создали общий Chart reddit для общей сборки и управления зависимостями
+- Увеличили мощности GKE
+- Установили Gitlab-Omnibus в GKE
+- Поменяли конфигурацию gitlab
+- Создали проект в Gitlab
+- Собрали исходники проекта локально и проверили успешность их деплоя в Gitlab
+- Доделали мануал
+
+
